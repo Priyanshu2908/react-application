@@ -1,0 +1,11 @@
+.myclass{
+  color: red;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.nav-item .active{
+  font-weight: bold;
+  color: red !important;
+  border-bottom: 2xp solid red;
+}
