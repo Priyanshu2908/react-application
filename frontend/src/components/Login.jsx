@@ -1,45 +1,40 @@
-import React, { useState } from 'react'
+import { useFormik } from "formik";
+import React from "react";
 
 const Login = () => {
-    const [likes, setlikes] = useState(0);
-    
-    const[imgUrl, setImgUrl] =useState('');
 
+  // initializing formik
+  const loginForm = useFormik({
+    initialValues: {
+      email: '',
+      password : ''
+    },
 
-    const selectfile=(e) =>{
-        const file= e.target.files[0];
-        console.log(file);
-        //reading file
-
-
-        
+    onSubmit: (values) => {
+      console.log(values);
+      // submit values to the backend
     }
+  });
+
   return (
-    
-   <div>
-     <div className='container'>
-        
-    <h1>Login</h1>
-   
-    <br />
-    <br />
-    
-
-    <h3>Email</h3>
-    <input className='email' type="text" /> 
-    <br />
-    <br />
-    <h3 className='password'>Password</h3>
-    <input type="number" /> 
-    <br />
-    <br />
-    <button className='btn btn-primary' onClick={()=>{setlikes(likes+1)}}>Sumit</button>
-   
-
-    
+    <div className="d-flex justify-content-center align-items-center vh-100">
+      <div className="card w-25 shadow-lg rounded-5">
+        <div className="card-body p-5">
+          <i className="fa-solid fa-lock fa-3x d-block text-center" />
+          <h2 className="text-center my-5">Login Form</h2>
+          <form onSubmit={loginForm.handleSubmit}>
+            <label htmlFor="">Email</label>
+            <input className="form-control mb-4 rounded-5" type="email" name="email" onChange={loginForm.handleChange} value={loginForm.values.email} />
+            <label htmlFor="">Password</label>
+            <input className="form-control mb-4 rounded-5" type="password" name="password" onChange={loginForm.handleChange} value={loginForm.values.password} />
+            <button type="submit" className="btn btn-danger w-100 mt-4 rounded-5">
+              Login
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
-   </div>
-  )
-}
+  );
+};
 
-export default Login           
+export default Login;
