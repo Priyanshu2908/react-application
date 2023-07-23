@@ -7,6 +7,7 @@ import Navbar from './components/Navbar';
 import EventHandling from './components/EventHandling';
 import StateManagement from './components/StateManagement';
 import Todo from './components/Todo';
+import Contact from './components/Contact';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path='event' element={<EventHandling />}/>
             <Route path='state' element={<StateManagement />}/>
             <Route path='todo' element={<Todo />}/>
+            <Route path='contact' element={<Contact />}/>
           </Routes>
       </BrowserRouter>
     </div>
