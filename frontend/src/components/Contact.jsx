@@ -2,14 +2,14 @@ import { useFormik } from "formik";
 import React from "react";
 import * as Yup from 'yup';
 
-const loginSchema = Yup.object().shape({
+const ContactSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
 });
 
-const Login = () => {
+const Contact = () => {
 
   // initializing formik
-  const loginForm = useFormik({
+  const ContactForm = useFormik({
     initialValues: {
       email: '',
       Phone : '',
@@ -21,7 +21,7 @@ const Login = () => {
       // submit values to the backend
     },
 
-    validationSchema: loginSchema
+    validationSchema: ContactSchema
   });
 
   return (
@@ -29,18 +29,18 @@ const Login = () => {
       <div className="card w-25 shadow-lg rounded-5">
         <div className="card-body p-5">
           <i className="fa-solid fa-lock fa-3x d-block text-center" />
-          <h2 className="text-center my-5">Login Form</h2>
-          <form onSubmit={loginForm.handleSubmit}>
+          <h2 className="text-center my-5">Contact Form</h2>
+          <form onSubmit={ContactForm.handleSubmit}>
             <label htmlFor="">Email</label>
-            <p>{loginForm.errors.email}</p>
+            <p>{ContactForm.errors.email}</p>
             
-            <input className="form-control mb-4 rounded-5" type="email" name="email" onChange={loginForm.handleChange} value={loginForm.values.email} />
+            <input className="form-control mb-4 rounded-5" type="email" name="email" onChange={ContactForm.handleChange} value={ContactForm.values.email} />
             <label htmlFor="">Phone</label>
-            <input className="form-control mb-4 rounded-5" type="Phone" name="Phone" onChange={loginForm.handleChange} value={loginForm.values.Phone} />
+            <input className="form-control mb-4 rounded-5" type="Phone" name="Phone" onChange={ContactForm.handleChange} value={ContactForm.values.Phone} />
             <label htmlFor="">Mesage</label>
-            <textarea className="form-control mb-4 rounded-5" type="text" name="Message" onChange={loginForm.handleChange} value={loginForm.values.Message} />
+            <textarea className="form-control mb-4 rounded-5" type="text" name="Message" onChange={ContactForm.handleChange} value={ContactForm.values.Message} />
             <button type="submit" className="btn btn-danger w-100 mt-4 rounded-5">
-              Login
+              Contact
             </button>
           </form>
         </div>
@@ -49,4 +49,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Contact;
