@@ -1,5 +1,12 @@
 import { useFormik } from "formik";
 import React from "react";
+import Swal from "sweetalert2";
+import * as Yup from 'yup';
+
+const loginSchema = Yup.object().shape({
+  email: Yup.string().email('Invalid email').required('Email is Required'),
+  password : Yup.string().required('Password is Required')
+});
 
 const Login = () => {
 
@@ -10,10 +17,40 @@ const Login = () => {
       password : ''
     },
 
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       console.log(values);
+
+      const res = await fetch('http://localhost:5000/user/authenticate', {
+        method: 'POST',
+        body: JSON.stringify(values),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      console.log(res.status);
+      if(res.status === 200){
+        Swal.fire({
+          icon : 'success',
+          title : 'Login Success!!'
+        })
+      }else if(res.status === 401){
+        Swal.fire({
+          icon : 'error',
+          title : 'Login Failed!!',
+          text: 'Email or Password is incorrect'
+        })
+      }else{
+        Swal.fire({
+          icon : 'error',
+          title : 'Something went wrong!!'
+        })
+      }
+
       // submit values to the backend
-    }
+    },
+
+    validationSchema: loginSchema
   });
 
   return (
@@ -24,8 +61,11 @@ const Login = () => {
           <h2 className="text-center my-5">Login Form</h2>
           <form onSubmit={loginForm.handleSubmit}>
             <label htmlFor="">Email</label>
-            <input className="form-control mb-4 rounded-5" type="email" name="email" onChange={loginForm.handleChange} value={loginForm.values.email} />
+            <p className="error-label">{loginForm.touched.email ? loginForm.errors.email : '' }</p>
+            
+            <input className="form-control mb-4 rounded-5" name="email" onChange={loginForm.handleChange} value={loginForm.values.email} />
             <label htmlFor="">Password</label>
+            <p className="error-label">{loginForm.touched.password ? loginForm.errors.password : ''  }</p>
             <input className="form-control mb-4 rounded-5" type="password" name="password" onChange={loginForm.handleChange} value={loginForm.values.password} />
             <button type="submit" className="btn btn-danger w-100 mt-4 rounded-5">
               Login

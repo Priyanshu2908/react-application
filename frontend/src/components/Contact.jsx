@@ -29,7 +29,7 @@ const Contact = () => {
       <div className="card w-25 shadow-lg rounded-5">
         <div className="card-body p-5">
           <i className="fa-solid fa-lock fa-3x d-block text-center" />
-          <h2 className="text-center my-5">Contact Form</h2>
+          <h2 className ="text-center my-5">Contact Form</h2>
           <form onSubmit={ContactForm.handleSubmit}>
             <label htmlFor="">Email</label>
             <p>{ContactForm.errors.email}</p>
