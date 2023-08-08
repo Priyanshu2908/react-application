@@ -1,7 +1,35 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import useUserContext from "../UserContext";
 
 const Navbar = () => {
+  const { loggedIn, logout } = useUserContext();
+
+  const showLoginOption = () => {
+    if (loggedIn) {
+      return (
+        <li className="nav-item">
+          <button onClick={logout} className="btn btn-danger">Logout</button>
+        </li>
+      );
+    } else {
+      return (
+        <>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/login">
+              Login
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/signup">
+              Signup
+            </NavLink>
+          </li>
+        </>
+      );
+    }
+  };
+
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
@@ -22,20 +50,11 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <NavLink className="nav-link " aria-current="page" to="/home">
+              <NavLink className="nav-link" to="/home">
                 Home
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/login">
-                login
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/signup">
-                Signup
-              </NavLink>
-            </li>
+
             <li className="nav-item">
               <NavLink className="nav-link" to="/event">
                 Event Handling
@@ -43,38 +62,29 @@ const Navbar = () => {
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/state">
-                 State Management
+                State Management
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/todo">
-                 Todo App
+                Todo App
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/contact">
-                Contact form
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/Browse">
+              <NavLink className="nav-link" to="/browse">
                 Browse Laptops
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/manageuser">
-                Manage User
+                Manage Users
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/Update">
-                Update User
-              </NavLink>
-            </li>
-            
+
+            {showLoginOption()}
             
           </ul>
-         
+          
         </div>
       </div>
     </nav>
